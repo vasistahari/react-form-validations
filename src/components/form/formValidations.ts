@@ -20,7 +20,7 @@ export default class Employee {
   city: string;
   state: string;
   country: string;
-  remoteWork?: boolean;
+  remoteWork?: boolean; // optional
   address?: string; // optional
 
   constructor(data: {
@@ -35,7 +35,7 @@ export default class Employee {
     city: string;
     state: string;
     country: string;
-    remoteWork?: boolean;
+    remoteWork?: boolean; // optional
     address?: string; // optional
   }) {
     this.salutation = data.salutation;
@@ -45,16 +45,19 @@ export default class Employee {
     this.email = data.email.trim();
     this.dob = data.dob;
     this.employmentType = data.employmentType;
-    this.remoteWork = data.remoteWork || false;
     this.designation = data.designation.trim();
     this.city = data.city.trim();
     this.state = data.state.trim();
     this.country = data.country.trim();
+    this.remoteWork = data.remoteWork || false; // optional
     this.address = data.address?.trim() || ""; // optional
   }
 
   validate(): TValidationErrors {
     const errors: TValidationErrors = {};
+
+    if (!this.salutation || !salutations.includes(this.salutation))
+      errors.salutation = "Invalid Salutation";
 
     if (!this.salutation) errors.salutation = "Salutation is required";
     else if (!salutations.includes(this.salutation))
